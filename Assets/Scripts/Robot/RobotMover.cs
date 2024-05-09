@@ -25,45 +25,38 @@ public class RobotMover : MonoBehaviour
         // —оздаем вектор направлени€ движени€ на основе ввода игрока
         _movementDirection = new Vector2(horizontalInput, verticalInput).normalized;
 
-        RotateTank();
+        RotateRobot();
     }
 
     void FixedUpdate()
     {
-        MoveTank();
+        MoveRobot();
     }
 
-    void MoveTank()
+    void MoveRobot()
     {
         Vector2 movement = _movementDirection * _moveSpeed * Time.fixedDeltaTime;
 
         _rigidbody2D.MovePosition(_rigidbody2D.position + movement);
     }
 
-    void RotateTank()
+    void RotateRobot()
     {
         if (_movementDirection != Vector2.zero)
         {
-            // ¬ычисл€ем угол между текущим направлением танка и желаемым направлением
             float targetAngle = Mathf.Atan2(_movementDirection.y, _movementDirection.x) * Mathf.Rad2Deg;
 
-            // ѕолучаем направление танка
             Vector2 tankForward = transform.right;
 
-            // ¬ычисл€ем угол между направлением танка и желаемым направлением
             float angleDiff = Vector2.SignedAngle(tankForward, _movementDirection);
 
-            // ќпредел€ем, кака€ часть танка ближе к целевому направлению
             if (Mathf.Abs(angleDiff) > 90f)
             {
-                // ≈сли задн€€ часть танка ближе к целевому направлению, разворачиваемс€ задним ходом
                 targetAngle += 180f;
             }
 
-            // ѕлавно поворачиваем танк в желаемое направление
             float angle = Mathf.MoveTowardsAngle(_rigidbody2D.rotation, targetAngle, _rotationSpeed * Time.deltaTime);
 
-            // ѕримен€ем поворот к танку
             _rigidbody2D.MoveRotation(angle);
         }
     }

@@ -5,23 +5,12 @@ using UnityEngine.UI;
 
 public class Teleport : MonoBehaviour
 {
-    [SerializeField] private Transform _objectTransform;
-    [SerializeField] private TeleportPointsContainer _teleportPointsContainer;
-    [SerializeField] private Button _teleportButton;
+    [SerializeField] private Robot _robot;
+    [SerializeField] private List<Transform> _teleportPoints;
 
-    private void OnEnable()
+    public void TeleportToPoint(int buttonIndex)
     {
-        _teleportButton.onClick.AddListener(OnTPButtonClick);
-    }
-    
-    private void OnDisable()
-    {
-        _teleportButton.onClick.RemoveListener(OnTPButtonClick);
-    }
-
-    private void OnTPButtonClick()
-    {
-        TeleportPoint teleportPoint = _teleportPointsContainer.GetTeleportPoint();
-
+        Debug.Log(buttonIndex);
+        _robot.SetPosition(new(_teleportPoints[buttonIndex].position.x, _teleportPoints[buttonIndex].position.y));
     }
 }
