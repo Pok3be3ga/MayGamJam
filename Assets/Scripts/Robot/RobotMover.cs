@@ -7,6 +7,7 @@ public class RobotMover : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 180f;
+    [SerializeField] private Animator _animator;
 
     private Rigidbody2D _rigidbody2D;
     private Vector2 _movementDirection;
